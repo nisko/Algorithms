@@ -39,7 +39,7 @@ class BinaryTree:
     def search_max(root):
         while not (root is None):
             if root.right is None:
-                return root.key
+                return root
             else:
                 root = root.right
         return None
@@ -48,7 +48,7 @@ class BinaryTree:
     def search_min(root):
         while not (root is None):
             if root.left is None:
-                return root.key
+                return root
             else:
                 root = root.left
         return None
@@ -63,3 +63,28 @@ class BinaryTree:
             else:
                 root = root.left
         return False
+
+    def transplant(self, old_node, new_node):
+        if old_node.parent is None:
+            self.root = new_node
+        elif old_node.parent.left is old_node:
+            old_node.parent.left = new_node
+        else:
+            old_node.parent.right = new_node
+        if not (new_node is None):
+            new_node.parent = old_node.parent
+
+    def delete_node(self, del_node):
+        if del_node.left is None:
+            self.transplant(del_node, del_node.right)
+        elif del_node.right is None:
+            self.transplant(del_node, del_node.left)
+        else:
+            min_node = BinaryTree.search_min(del_node.right)
+            if not (min_node.parent is del_node):
+                self.transplant(min_node, min_node.right)
+                min_node.right = del_node.right
+                min_node.right.parent = min_node
+            self.transplant(del_node, min_node)
+            min_node.left = del_node.left
+            min_node.left.parent = min_node
