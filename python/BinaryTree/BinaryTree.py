@@ -28,12 +28,20 @@ class BinaryTree:
                 BinaryTree.insert(node, root.left)
 
     @staticmethod
-    def in_order_traversal_rec(root: Node, keys: list) -> None:
+    def in_order_traversal(root: Node, keys: list) -> None:
         if root is None:
             return
-        BinaryTree.in_order_traversal_rec(root.left, keys)
+        BinaryTree.in_order_traversal(root.left, keys)
         keys.append(root.key)
-        BinaryTree.in_order_traversal_rec(root.right, keys)
+        BinaryTree.in_order_traversal(root.right, keys)
+
+    @staticmethod
+    def pre_order_traversal(root: Node, keys: list) -> None:
+        if root is None:
+            return
+        keys.append(root.key)
+        BinaryTree.pre_order_traversal(root.left, keys)
+        BinaryTree.pre_order_traversal(root.right, keys)
 
     @staticmethod
     def search_max(root: Node) -> object:

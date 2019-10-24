@@ -15,12 +15,12 @@ class RBTree(BinaryTree.BinaryTree):
         if pivot_node.right is None:
             raise NameError('uncorrected node for left rotate')
         right_node = pivot_node.right
-        pivot_node.left = right_node.left
 
+        pivot_node.right = right_node.left
         if right_node.left is not None:
             right_node.left.parent = pivot_node
-        right_node.parent = pivot_node.parent
 
+        right_node.parent = pivot_node.parent
         if pivot_node.parent is None:
             self.root = right_node
         elif pivot_node is pivot_node.parent.left:
@@ -30,3 +30,23 @@ class RBTree(BinaryTree.BinaryTree):
 
         right_node.left = pivot_node
         pivot_node.parent = right_node
+
+    def right_rotate(self, pivot_node: RBNode):
+        if pivot_node.left is None:
+            raise NameError('uncorrected node for right rotate')
+        left_node = pivot_node.left
+
+        pivot_node.left = left_node.right
+        if left_node.right is not None:
+            left_node.right.parent = pivot_node
+
+        left_node.parent = pivot_node.parent
+        if pivot_node.parent is None:
+            self.root = left_node
+        elif pivot_node is pivot_node.parent.left:
+            pivot_node.parent.left = left_node
+        else:
+            pivot_node.parent.right = left_node
+
+        left_node.right = pivot_node
+        pivot_node.parent = left_node
