@@ -8,8 +8,26 @@ class RBNode(BinaryTree.Node):
 
 
 class RBTree(BinaryTree.BinaryTree):
-    def __init__(self, root: RBNode):
-        super().__init__(root)
+    @staticmethod
+    def in_order_traversal(root: RBNode, keys: list) -> None:
+        if root is None:
+            return
+        RBTree.in_order_traversal(root.left, keys)
+        keys.append(root.key)
+        RBTree.in_order_traversal(root.right, keys)
+
+    @staticmethod
+    def pre_order_traversal(root: RBNode, keys: list) -> None:
+        if root is None:
+            return
+        keys.append(root.key)
+        RBTree.pre_order_traversal(root.left, keys)
+        RBTree.pre_order_traversal(root.right, keys)
+
+    def __init__(self):
+        self.root = None
+    #    super().__init__(root)
+    #    root.color = "Black"
 
     def left_rotate(self, pivot_node: RBNode):
         if pivot_node.right is None:
@@ -52,7 +70,7 @@ class RBTree(BinaryTree.BinaryTree):
         pivot_node.parent = left_node
 
     def rb_insert_fixup(self, new_node: RBNode):
-        while new_node.parent.colot == "Red":
+        while new_node.parent and new_node.parent.color == "Red":
             if new_node.parent is new_node.parent.parent.left:
                 fix_node = new_node.parent.parent.right
                 if fix_node.color == "Red":
@@ -64,9 +82,9 @@ class RBTree(BinaryTree.BinaryTree):
                     new_node = new_node.parent
                     self.left_rotate(new_node)
 
-                new_node.parent.color = "Black"
-                new_node.parent.parent.color = "Red"
-                self.right_rotate(new_node.parent.parent)
+                    new_node.parent.color = "Black"
+                    new_node.parent.parent.color = "Red"
+                    self.right_rotate(new_node.parent.parent)
             else:
                 fix_node = new_node.parent.parent.right
                 if fix_node.color == "Red":
@@ -78,9 +96,10 @@ class RBTree(BinaryTree.BinaryTree):
                     new_node = new_node.parent
                     self.right_rotate(new_node)
 
-                new_node.parent.color = "Black"
-                new_node.parent.parent.color = "Red"
-                self.left_rotate(new_node.parent.parent)
+                    new_node.parent.color = "Black"
+                    new_node.parent.parent.color = "Red"
+                    self.left_rotate(new_node.parent.parent)
+        self.root.color = "Black"
 
     def rb_insert(self, new_node: RBNode):
         node_y = None

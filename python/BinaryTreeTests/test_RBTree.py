@@ -4,31 +4,49 @@ from BinaryTree import RBTree
 
 class TestBinaryTree(TestCase):
 
-    def test_insert(self):
-        a = RBTree.RBNode(None, None, None, 5, None)
-        tree = RBTree.RBTree(a)
-        b = RBTree.RBNode(None, None, None, 1, None)
-        c = RBTree.RBNode(None, None, None, 7, None)
-        d = RBTree.RBNode(None, None, None, 2, None)
-        tree.insert(b, tree.root)
-        tree.insert(c, tree.root)
-        tree.insert(d, tree.root)
+    def test_rb_insert(self):
+        tree = RBTree.RBTree()
+        tree.rb_insert(RBTree.RBNode(None, None, None, 11, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 2, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 14, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 1, None))
         keys = []
-        tree.in_order_traversal(tree.root, keys)
-        true_keys = [1, 2, 5, 7]
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [11, 2, 1, 14]
+        self.assertListEqual(true_keys, keys)
+
+        tree.rb_insert(RBTree.RBNode(None, None, None, 7, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 15, None))
+        keys = []
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [11, 2, 1, 7, 14, 15]
+        self.assertListEqual(true_keys, keys)
+
+        tree.rb_insert(RBTree.RBNode(None, None, None, 5, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 8, None))
+        keys = []
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [11, 2, 1, 7, 5, 8, 14, 15]
+        self.assertListEqual(true_keys, keys)
+
+        tree.rb_insert(RBTree.RBNode(None, None, None, 4, None))
+        keys = []
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [7, 2, 1, 5, 4, 11, 8, 14, 15]
         self.assertListEqual(true_keys, keys)
 
     def test_right_rotate(self):
+        tree = RBTree.RBTree()
         a = RBTree.RBNode(None, None, None, 3, None)
-        tree = RBTree.RBTree(a)
         b = RBTree.RBNode(None, None, None, 1, None)
         c = RBTree.RBNode(None, None, None, 5, None)
         d = RBTree.RBNode(None, None, None, 0, None)
         e = RBTree.RBNode(None, None, None, 2, None)
-        tree.insert(b, tree.root)
-        tree.insert(c, tree.root)
-        tree.insert(d, tree.root)
-        tree.insert(e, tree.root)
+        tree.rb_insert(a)
+        tree.rb_insert(b)
+        tree.rb_insert(c)
+        tree.rb_insert(d)
+        tree.rb_insert(e)
         keys = []
         tree.pre_order_traversal(tree.root, keys)
         true_keys = [3, 1, 0, 2, 5]
@@ -40,16 +58,17 @@ class TestBinaryTree(TestCase):
         self.assertListEqual(true_keys, keys)
 
     def test_left_rotate(self):
+        tree = RBTree.RBTree()
         a = RBTree.RBNode(None, None, None, 1, None)
-        tree = RBTree.RBTree(a)
         b = RBTree.RBNode(None, None, None, 0, None)
         c = RBTree.RBNode(None, None, None, 3, None)
         d = RBTree.RBNode(None, None, None, 2, None)
         e = RBTree.RBNode(None, None, None, 5, None)
-        tree.insert(b, tree.root)
-        tree.insert(c, tree.root)
-        tree.insert(d, tree.root)
-        tree.insert(e, tree.root)
+        tree.rb_insert(a)
+        tree.rb_insert(b)
+        tree.rb_insert(c)
+        tree.rb_insert(d)
+        tree.rb_insert(e)
         keys = []
         tree.pre_order_traversal(tree.root, keys)
         true_keys = [1, 0, 3, 2, 5]
@@ -59,4 +78,3 @@ class TestBinaryTree(TestCase):
         tree.pre_order_traversal(tree.root, keys)
         true_keys = [3, 1, 0, 2, 5]
         self.assertListEqual(true_keys, keys)
-

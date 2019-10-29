@@ -117,4 +117,3 @@ class TestBinaryTree(TestCase):
         tree.in_order_traversal(tree.root, keys)
         true_keys = []
         self.assertListEqual(true_keys, keys)
-
