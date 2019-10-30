@@ -9,23 +9,25 @@ class Node:
 
 class BinaryTree:
 
-    def __init__(self, root: Node):
+    def __init__(self, root=None):
         self.root = root
 
-    @staticmethod
-    def insert(node: Node, root: Node) -> None:
+    def insert(self, node: Node, root: Node) -> None:
+        if root is None:
+            self.root = node
+            return
         if node.key >= root.key:
             if root.right is None:
                 root.right = node
                 node.parent = root
             else:
-                BinaryTree.insert(node, root.right)
+                self.insert(node, root.right)
         else:
             if root.left is None:
                 root.left = node
                 node.parent = root
             else:
-                BinaryTree.insert(node, root.left)
+                self.insert(node, root.left)
 
     @staticmethod
     def in_order_traversal(root: Node, keys: list) -> None:

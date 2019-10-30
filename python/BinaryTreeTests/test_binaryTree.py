@@ -18,6 +18,13 @@ class TestBinaryTree(TestCase):
         true_keys = [1, 2, 5, 7]
         self.assertListEqual(true_keys, keys)
 
+        tree_empty = BinaryTree.BinaryTree()
+        tree_empty.insert(BinaryTree.Node(None, None, None, 5), tree_empty.root)
+        keys = []
+        tree_empty.in_order_traversal(tree_empty.root, keys)
+        true_keys = [5]
+        self.assertListEqual(true_keys, keys)
+
     def test_in_order_traversal(self):
         a = BinaryTree.Node(None, None, None, 5)
         tree = BinaryTree.BinaryTree(a)

@@ -26,8 +26,6 @@ class RBTree(BinaryTree.BinaryTree):
 
     def __init__(self):
         self.root = None
-    #    super().__init__(root)
-    #    root.color = "Black"
 
     def left_rotate(self, pivot_node: RBNode):
         if pivot_node.right is None:
@@ -81,7 +79,6 @@ class RBTree(BinaryTree.BinaryTree):
                 elif new_node is new_node.parent.right:
                     new_node = new_node.parent
                     self.left_rotate(new_node)
-
                     new_node.parent.color = "Black"
                     new_node.parent.parent.color = "Red"
                     self.right_rotate(new_node.parent.parent)
@@ -95,7 +92,6 @@ class RBTree(BinaryTree.BinaryTree):
                 elif new_node is new_node.parent.right:
                     new_node = new_node.parent
                     self.right_rotate(new_node)
-
                     new_node.parent.color = "Black"
                     new_node.parent.parent.color = "Red"
                     self.left_rotate(new_node.parent.parent)
