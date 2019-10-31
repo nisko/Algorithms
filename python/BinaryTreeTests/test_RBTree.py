@@ -35,6 +35,30 @@ class TestBinaryTree(TestCase):
         true_keys = [7, 2, 1, 5, 4, 11, 8, 14, 15]
         self.assertListEqual(true_keys, keys)
 
+    def test_rb_delete(self):
+        tree = RBTree.RBTree()
+        tree.rb_insert(RBTree.RBNode(None, None, None, 11, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 2, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 14, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 1, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 7, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 15, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 5, None))
+        tree.rb_insert(RBTree.RBNode(None, None, None, 8, None))
+        z = RBTree.RBNode(None, None, None, 4, None)
+        tree.rb_insert(z)
+        keys = []
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [7, 2, 1, 5, 4, 11, 8, 14, 15]
+        self.assertListEqual(true_keys, keys)
+
+        tree.delete_node(z)
+        keys = []
+        RBTree.RBTree.pre_order_traversal(tree.root, keys)
+        true_keys = [7, 2, 1, 5, 11, 8, 14, 15]
+        self.assertListEqual(true_keys, keys)
+
+
     def test_right_rotate(self):
         tree = RBTree.RBTree()
         a = RBTree.RBNode(None, None, None, 3, None)
